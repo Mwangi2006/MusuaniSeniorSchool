@@ -1,0 +1,31 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches:
+      - main
+
+permissions:
+  pages: write
+  id-token: write
+  contents: read
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # If you have a build step (e.g., a static site generator), run it here and set the path below to the build output.
+      # Example:
+      # - name: Build site
+      #   run: npm ci && npm run build
+
+      - name: Upload artifact for GitHub Pages
+        uses: actions/upload-pages-artifact@v1
+        with:
+          path: './'   # change to './public' or './dist' if you have a build output folder
+
+      - name: Deploy to GitHub Pages
+        uses: actions/deploy-pages@v1
